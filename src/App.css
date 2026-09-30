@@ -22,6 +22,13 @@ body
     margin-top: 30px;
 }
 
+.desc
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 .navbar
 {
     margin: 15px;

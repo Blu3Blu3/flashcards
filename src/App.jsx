@@ -59,8 +59,8 @@ function Flashcard({id, cardData, side}) {
             }
             else {
                 setCurrImg(DEFAULT_IMAGE)
-                setCurrWidth(100)
-                setCurrHeight(100)
+                setCurrWidth(0)
+                setCurrHeight(0)
             }
         }
         // Flip to A-side
@@ -95,7 +95,7 @@ function Flashcard({id, cardData, side}) {
                 height={`${currHeight}px`}
                 src={imgsAnimals[currImg]}
             />
-            <p>{currText}</p>
+            <p className="desc">{currText}</p>
         </div>
     )
 }
@@ -121,7 +121,7 @@ function App() {
         else {
             // This doesn't even help with rerenders...
             setCurrFlashcard(currFlashcard)
-            console.log("stay! good girl!")
+            console.log("stay! good boy!")
         }
         // >:/
         setSide(true)
