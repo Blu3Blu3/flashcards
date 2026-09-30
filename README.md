@@ -43,7 +43,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='https://imgur.com/a/j31LZAy' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<a href='https://imgur.com/a/j31LZAy' title='Video Walkthrough' alt='Video Walkthrough'>Video Walkthrough</a>
 
 GIF created with ScreenToGif
 
