@@ -1,0 +1,43 @@
+body
+{
+    background-color: pink;
+}
+
+#flashcard
+{
+    width: 80%;
+    height: 60%;
+    text-align: center;
+    margin-left: 10%;
+    background-color: white;
+    border: 3px solid rgb(176, 16, 69);
+    border-radius: 15px;
+    /* animation: 0.5 flip alternate; */
+}
+
+.image
+{
+    border: 1.5px solid black;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.navbar
+{
+    margin: 15px;
+}
+
+#scrollLeft
+{
+    margin-right: 30px;
+}
+
+#scrollRight
+{
+    margin-left: 30px;
+}
+
+/* @keyframes flip
+{
+    100% {rotate_z: 90deg}
+} */

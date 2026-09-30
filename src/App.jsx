@@ -4,13 +4,7 @@ import { pools } from './flashcards.js'
 
 // Images (mostly stock)
 import {imgsAnimals, img_default} from './assets'
-console.log("Here come the images")
-console.log(imgsAnimals)
-console.log(img_default)
-console.log("There went the images")
 
-
-const TIME_FLIP = 0.5
 // In pixels
 const DEFAULT_IMAGE_WIDTH = 330
 const DEFAULT_IMAGE_HEIGHT = 330
@@ -41,13 +35,11 @@ function shuffle(arr) {
     return arr
 }
 
-function Flashcard({cardData}) {
+function Flashcard({id, cardData, side}) {
     // So... once a props object has been destructured like this, the derived vars can be used as normal,
     //  without any curly braces.
     let {sideA, sideB, imgA, imgB} = cardData
-    // imgA = "./assets".concat(imgA)
-    // imgB = "./assets".concat(imgB)
-    const [aUp, setAUp] = useState(true)
+    const [aUp, setAUp] = useState({side})
     const [currText, setCurrText] = useState(sideA)
     const [currImg, setCurrImg] = useState(imgA)
     const [currWidth, setCurrWidth] = useState(0)
@@ -56,7 +48,6 @@ function Flashcard({cardData}) {
     function flipCard() {
         // Swap between the text and images on sides A and B. Only show images if a source string is provided.
         // Flip to B-side
-        console.log({aUp})
         if(aUp) {
             setAUp(false)
             setCurrText(sideB)
@@ -74,7 +65,6 @@ function Flashcard({cardData}) {
         }
         // Flip to A-side
         else {
-            console.log("going true")
             setAUp(true)
             setCurrText(sideA)
             if(imgA.length > 1) {
@@ -91,11 +81,11 @@ function Flashcard({cardData}) {
     }
 
     return (
-        <div 
+        <div
+            id={id} 
             className="flashcard"
             onClick={() => {
                     flipCard()
-                    console.log(cardData)
                 }
             }
         >
@@ -117,30 +107,33 @@ function App() {
     const [currPoolName, setCurrPoolName] = useState("animals")
     // const [currImgs, setCurrImgs] = useState(`imgs${currPoolName}`)
     const [flashcards, setFlashcards] = useState(get_by_name(pools, currPoolName))
+    const [side, setSide] = useState(true)
 
     function handleScroll(scrollRight = true) {
         if(scrollRight && currFlashcard < flashcards["pool"].length-1) {
-            setCurrFlashcard(currFlashcard => currFlashcard+1)
+            setCurrFlashcard(currFlashcard+1)
+            console.log("scrolling right")
         }
         else if(!scrollRight && currFlashcard > 0) {
-            setCurrFlashcard(currFlashcard => currFlashcard-1)
+            setCurrFlashcard(currFlashcard-1)
+            console.log("scrolling left")
         }
         else {
-            // Is this necessary so rerenders happen?
+            // This doesn't even help with rerenders...
             setCurrFlashcard(currFlashcard)
+            console.log("stay! good girl!")
         }
+        // >:/
+        setSide(true)
     }
 
     function handleShuffle(arr) {
-        // Could this also not be hard-coded? I hope so...
         console.log("shuffling...")
-        console.log(arr)
         arr = shuffle(arr)
-        console.log("shuffled!")
-        console.log(arr)
+        setSide(true)
         return arr
     }
-
+    
     return (
         <div>
             <h1>{flashcards["title"]}</h1>
@@ -148,19 +141,34 @@ function App() {
             <div className="navbar">
                 <button
                     id="scrollLeft"
-                    onClick={() => {handleScroll(false)}}
+                    onClick={
+                        () => {
+                            handleScroll(false)
+                            setSide(true)
+                        }
+                    }
                 >
                     {" < "}
                 </button>
                 <button
                     id="shuffle"
-                    onClick={() => handleShuffle(flashcards["pool"])}
+                    onClick={
+                        () => {
+                            handleShuffle(flashcards["pool"])
+                            setSide(true)
+                        }
+                    }
                 >
                      Shuffle cards 
                 </button>
                 <button
                     id="scrollRight"
-                    onClick={() => {handleScroll(true)}}
+                    onClick={
+                        () => {
+                            handleScroll(true)
+                            setSide(true)
+                        }
+                    }
                 >
                     {" > "}
                 </button>
@@ -168,7 +176,9 @@ function App() {
             <Flashcard
                 id="flashcard"
                 cardData={flashcards["pool"][currFlashcard]}
-            />
+                side={setSide}
+            >
+            </Flashcard>
         </div>
     )
 }
