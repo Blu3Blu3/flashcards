@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { pools } from './flashcards.js'
 
@@ -44,6 +44,11 @@ function Flashcard({id, cardData, side}) {
     const [currImg, setCurrImg] = useState(imgA)
     const [currWidth, setCurrWidth] = useState(0)
     const [currHeight, setCurrHeight] = useState(0)
+
+    // Rerender testing...
+    useEffect(() => {
+        setAUp(true)        
+    }, [])
 
     function flipCard() {
         // Swap between the text and images on sides A and B. Only show images if a source string is provided.
@@ -176,9 +181,8 @@ function App() {
             <Flashcard
                 id="flashcard"
                 cardData={flashcards["pool"][currFlashcard]}
-                side={setSide}
-            >
-            </Flashcard>
+                side={side}
+            />
         </div>
     )
 }
